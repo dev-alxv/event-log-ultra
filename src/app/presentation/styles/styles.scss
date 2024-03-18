@@ -1,0 +1,13 @@
+.table-hover {
+  tbody {
+    tr {
+      &.tr-hover {
+        background-color: #f2f2f2;
+
+        td {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<div class="timeline-wrapper">
+
+  <ng-container *ngIf="eventCollection.length">
+
+    <div class="period">
+      <div class="label first">
+        <p>{{ periodStart | date: "YYYY-MM-dd" : "+0000" }}</p>
+        <p>{{ periodStart | date: "HH:mm:ss" : "+0000" }}</p>
+      </div>
+      <div class="label last">
+        <p>{{ periodEnd | date: "YYYY-MM-dd" : "+0000" }}</p>
+        <p>{{ periodEnd | date: "HH:mm:ss" : "+0000" }}</p>
+      </div>
+    </div>
+
+    <div class="timeline">
+
+      <ng-container *ngFor="let event of eventCollection; let i=index">
+
+        <div class="event" [ngStyle]="{left: event.timelineData.timelineRelativePosition}" (mouseover)="onHoverEvent(event.id)" (mouseout)="onHoverOutEvent()"
+          [ngClass]="{'level-warn': event.level === 'WARNING', 'level-error': event.level === 'ERROR', 'level-info': event.level === 'INFO', 'event-hovered': event.id === eventHoverIdInput}">
+          <div class="circle">
+            <div class="circle-inner"></div>
+          </div>
+        </div>
+
+      </ng-container>
+
+    </div>
+
+  </ng-container>
+
+</div>

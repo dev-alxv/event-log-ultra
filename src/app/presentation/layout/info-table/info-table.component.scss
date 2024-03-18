@@ -1,0 +1,36 @@
+.table-wrap {
+  min-height: 400px;
+  position: relative;
+  border: 1px solid #000;
+  border-top: 0;
+
+  .table-container {
+    position: relative;
+    min-height: 500px;
+    overflow: auto;
+  }
+
+  .loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.05);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .event-table {
+    border-collapse: collapse;
+
+    .mat-mdc-header-cell,
+    .mat-mdc-cell {
+      font-size: 17px;
+      padding: 18px 25px;
+      border-bottom: none;
+    }
+  }
+}

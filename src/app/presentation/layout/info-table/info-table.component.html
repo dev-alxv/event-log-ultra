@@ -1,0 +1,49 @@
+<event-log-timeline [eventHoverIdInput]="eventHoverId" (eventHoverIdEventOutput)="eventHoverIdUpdate($event)"></event-log-timeline>
+
+<div class="table-wrap">
+
+  <ng-container *ngIf="!(eventStoreStream$ | async)?.collection">
+    <div class="loading-shade">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="(eventStoreStream$ | async)?.collection as EventCollection">
+
+    <div class="table-container">
+      <table mat-table [dataSource]="EventCollection" class="event-table table-hover">
+
+        <!-- Time Column -->
+        <ng-container matColumnDef="time">
+          <th mat-header-cell *matHeaderCellDef>Time (UTC)</th>
+          <td mat-cell *matCellDef="let row">{{ row.timestamp | date: "YYYY-MM-dd HH:mm:ss" : "+0000" }}</td>
+        </ng-container>
+
+        <!-- Level Column -->
+        <ng-container matColumnDef="level">
+          <th mat-header-cell *matHeaderCellDef>Level</th>
+          <td mat-cell *matCellDef="let row">
+
+            <ng-container [ngSwitch]="row.level">
+              <mat-icon aria-hidden="false" aria-label="WARNING" title="WARNING" fontIcon="warning" *ngSwitchCase="'WARNING'" style="color: orange;"></mat-icon>
+              <mat-icon aria-hidden="false" aria-label="ERROR" title="ERROR" fontIcon="error" *ngSwitchCase="'ERROR'" style="color: red;"></mat-icon>
+              <mat-icon aria-hidden="false" aria-label="INFO" title="INFO" fontIcon="info" *ngSwitchCase="'INFO'" style="color: lightskyblue;"></mat-icon>
+            </ng-container>
+
+          </td>
+        </ng-container>
+
+        <!-- Message Column -->
+        <ng-container matColumnDef="message">
+          <th mat-header-cell *matHeaderCellDef>Message</th>
+          <td mat-cell *matCellDef="let row">{{ row.uiMessage }}</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (mouseout)="onHoverOutRow()" (mouseover)="onHoverRow(row.id)" [ngClass]="{ 'tr-hover': row.id === eventHoverId }"
+          [attr.uuid]="row.id" [class]="'event-table-tr'"></tr>
+      </table>
+    </div>
+
+  </ng-container>
+</div>
