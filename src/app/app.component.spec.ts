@@ -6,6 +6,7 @@ import { HeaderComponent } from './presentation/layout/header/header.component';
 import { InfoTableComponent } from './presentation/layout/info-table/info-table.component';
 import { LayoutComponent } from './presentation/layout/layout.component';
 import { TimelineComponent } from './presentation/layout/timeline/timeline.component';
+
 describe('AppComponent', () => {
   let component: AppComponent;
   let eventService: EventService;
@@ -29,5 +30,11 @@ describe('AppComponent', () => {
 
   it('should create the app', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should initialize services on ngOnInit', () => {
+    spyOn<any>(component, 'initServices');
+    component.ngOnInit();
+    expect(component['initServices']).toHaveBeenCalled();
   });
 });

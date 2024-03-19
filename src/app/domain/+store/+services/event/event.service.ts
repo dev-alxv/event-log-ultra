@@ -9,7 +9,7 @@ import { EventStore } from '../../event/event.store';
 })
 export class EventService {
 
-  public serviceInitialized = false;
+  private serviceInitialized = false;
 
   constructor(
     private eventStore: EventStore,
